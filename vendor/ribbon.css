@@ -1,0 +1,152 @@
+html,body {
+    height:100%;
+}
+
+#ribbon-container{
+    padding:0;
+}
+.comment {
+    position: absolute;
+    z-index: 20;
+    background-color: darkgray;
+    opacity: 0.1;
+}
+.comment-text {
+    font-style:italic;
+    color: darkgray;
+    text-decoration-color: black;
+    text-decoration: line-through;
+}
+#results {
+    border-collapse: collapse;
+}
+
+#results td {
+    /*border: 1px solid #999;*/
+    padding: 0.5rem;
+    text-align: left;
+}
+
+#results th {
+    /*border-bottom: hidden;*/
+    padding: 0.5rem;
+    text-align: center;
+    /*background: #bef1ff;*/
+    /*border-color: white;*/
+}
+
+#results tbody tr:hover {
+    background: lightgray;
+}
+
+#results td:nth-child(1) {
+    cursor:pointer;
+}
+#results td:nth-child(1):hover {
+    background: darkgray;
+}
+#explain-modal .modal-dialog{
+    width: 80%;
+}
+
+#variables {
+    table-layout: fixed;
+}
+#variables td{
+    border-top:none;
+    padding:1px;
+    vertical-align:middle;
+
+}
+#variables th{
+    border-top:none;
+    text-align:center;
+    border-bottom:none;
+}
+.variable-name {
+    width: 100%;
+}
+.variable-value{
+    width: 100%;
+}
+
+#options-panel{
+    /*width:250px;*/
+    height:100%;
+    background-color: #f8f8f8;
+    position:absolute;
+    /*display:flex;*/
+}
+#options-panel label{
+    font-weight: 700;
+    padding: 4px 6px;
+    border:none;
+    background:transparent;
+}
+
+#options-panel input{
+   border-color:#E2E2E2;
+}
+
+#options-panel select{
+    border-color:#E2E2E2;
+}
+
+#options-panel #explanation {
+    height: 20px;
+    width: 70%;
+    margin-left: auto;
+    margin-right: auto;
+    /*margin: 0;*/
+}
+.remove-var, .add-var{
+    border-radius:20px;
+    height:18px;
+    width:18px;
+    text-align:center;
+    padding:0;
+    font-size:12px;
+}
+
+.navbar-collapse {
+    height: auto;
+    border-top: 0;
+    box-shadow: none;
+    max-height: none;
+    padding-left:0;
+    padding-right:0;
+}
+.navbar-collapse.collapse {
+    /*display: block !important;*/
+    /*width: auto !important;*/
+    padding-bottom: 0;
+    overflow: visible !important;
+}
+
+.navbar-collapse.in {
+    overflow-x: visible;
+}
+
+.navbar
+{
+    max-width:300px;
+    margin-right: 0;
+    margin-left: 0;
+}
+
+.navbar-right .dropdown-menu {left:0;right:auto;}
+.navbar-collapse .navbar-nav.navbar-right:last-child {
+    margin-right: 0;
+}
+
+.font-bold {
+    font-weight: bold;
+}
+
+#stress-modal .modal-dialog{
+    width:80%;
+    /*height:100%;*/
+    background-color: #f8f8f8;
+    /*position:absolute;*/
+    /*display:flex;*/
+}

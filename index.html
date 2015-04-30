@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <link href="vendor/bootstrap.min.css" type="text/css" rel="stylesheet">
+    <link href="vendor/ribbon.css" type="text/css" rel="stylesheet">
+    <title></title>
+</head>
+<body>
+    <div id="ribbon-container" class="container col-md-4">
+            <div class="row">
+                <div id="tab-selection" class="container col-md-7">
+                    <ul id="tabs" class="nav nav-tabs">
+                        <li class="active"><a data-toggle="tab" data-editor='0' href="#editor0" class="btn btn-default">editor
+                            1</a></li>
+                        <li><a data-editor='1' data-toggle="tab" href="#editor1" class="btn btn-default">editor 2</a></li>
+                        <li><a data-editor='2' data-toggle="tab" href="#editor2" class="btn btn-default">editor 3</a></li>
+                        <li></li>
+                    </ul>
+                </div>
+                <div class="container-fluid">
+                    <button id="show-options" class="btn btn-info">Settings</button>
+                    <button id="stress-test" class="btn btn-info">Stress</button>
+                    <span id="query-type"></span>
+                    <button id="submit" class="btn btn-default" value="submit"><img height="25px" width="25px" src="resources/play.ico"></button>
+                    <span id="query-time"></span>
+                </div>
+            </div>
+            <div class="tab-content">
+                <div id="editor0" class="editor tab-pane fade in active">
+{
+    "match_all": {}
+}               </div>
+            <div id="editor1" class="editor tab-pane fade">bool:
+    should:
+    - multi_match:
+        query: __TERM__
+        fields:
+        - title^2
+        - text</div>
+            <div id="editor2" class="editor tab-pane fade"></div>
+        </div>
+    </div>
+    <div class="container col-md-2">
+        <table id="checkpoints" class="table">
+            <colgroup>
+                <col class="col-md-4">
+                <col class="col-md-4">
+                <col class="col-md-4">
+            </colgroup>
+            <thead>
+            <tr>
+                <th colspan="3">Checkpoints</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+            </tr>
+            </tbody>
+            <tfoot>
+            <tr>
+                <td>
+                </td>
+                <td>
+                </td>
+                <td>
+                    <button class="btn btn-primary save-checkpoint btn-sm">Save</button>
+                </td>
+            </tr>
+            </tfoot>
+        </table>
+    </div>
+    <div class="container-fluid col-md-6">
+        <table id="results" class="table">
+            <thead>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+    <div id="explain-modal" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">Explanation</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="container col-md-4">
+                        <span id="explain-query"></span>
+                    </div>
+                    <div class="container col-md-8">
+                        <span id="explain-text"></span>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="stress-modal" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">Stress Test</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="container col-md-4">
+                        <nav class="navbar-default">
+                            <div class="collapse navbar-collapse">
+                                <ul class="nav navbar-nav">
+                                    <li>
+                                        <div class="input-group">
+                                            <label class="input-group-addon" for="stress-count">Number of times to execute:</label>
+                                            <input class="form-control" id="stress-count" type="text" value="10">
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="input-group">
+                                            <button id="stress-submit" class="btn btn-default" value="submit"><img height="25px" width="25px" src="resources/play.ico"></button>
+                                        </div>
+                                    </li>
+
+                                    <li>
+                                        <hr />
+                                        <p>The following variables will be replace at query time to their corresponding value. Seperate values with , (comma) to randomize between them</p>
+                                        <table id="stress-variables" class="table table-condensed">
+                                            <colgroup>
+                                                <col class="col-md-5">
+                                                <col class="col-md-6">
+                                                <col>
+                                            </colgroup>
+                                            <thead>
+                                            <tr>
+                                                <th>Variable</th>
+                                                <th>Value</th>
+                                                <th></th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr>
+                                            </tr>
+                                            </tbody>
+                                            <tfoot>
+                                            <tr>
+                                                <td>
+                                                </td>
+                                                <td>
+                                                </td>
+                                                <td>
+                                                    <button class="btn btn-success add-stress-var">+</button>
+                                                </td>
+                                            </tr>
+                                            </tfoot>
+                                        </table>
+                                    </li>
+                                </ul>
+                            </div>
+                        </nav>
+                    </div>
+                    <div class="container col-md-8">
+                        <table id="stress-results" class="table">
+                            <thead>
+                                <tr>
+                                    <th>Percentile</th>
+                                    <th>Value</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="options-panel" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">Settings</h4>
+                </div>
+                <div class="modal-body">
+                    <nav class="navbar-default">
+                        <div class="collapse navbar-collapse">
+                            <ul class="nav navbar-nav">
+                                <li>
+                                    <div class="input-group">
+                                        <label class="input-group-addon" for="es-address">Address:</label>
+                                        <input class="form-control" id="es-address" type="text" value="http://localhost:9200">
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="input-group">
+                                        <label class="input-group-addon" for="font-size">Editor Font Size</label>
+                                        <select class="form-control" id="font-size" size="1">
+                                            <option value="10px">10px</option>
+                                            <option value="11px">11px</option>
+                                            <option value="12px" selected="selected">12px</option>
+                                            <option value="13px">13px</option>
+                                            <option value="14px">14px</option>
+                                            <option value="16px">16px</option>
+                                            <option value="18px">18px</option>
+                                            <option value="20px">20px</option>
+                                            <option value="24px">24px</option>
+                                        </select>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="input-group">
+                                        <label class="input-group-addon" for="explanation">Explanation</label>
+                                        <input class="" type="checkbox" id="explanation" checked="true">
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="input-group">
+                                        <label class="input-group-addon" for="index">Index:</label>
+                                        <input class="form-control" id="index" type="text" placeholder="_all">
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="input-group">
+                                        <label class="input-group-addon" for="type">Type:</label>
+                                        <input class="form-control" id="type" type="text" value="">
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="input-group">
+                                        <label class="input-group-addon" for="from">From:</label>
+                                        <input class="form-control" id="from" type="text" value="0">
+                                    </div>
+
+                                </li>
+                                <li>
+                                    <div class="input-group">
+                                        <label class="input-group-addon" for="size">Size:</label>
+                                        <input class="form-control" id="size" type="text" value="10">
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="input-group">
+                                        <label class="input-group-addon" for="_source">_source:</label>
+                                        <input class="form-control" id="_source" type="text" placeholder="">
+                                    </div>
+                                </li>
+                                <li>
+                                    <hr />
+                                    <p>The following variables will be replace at query time to their corresponding value.</p>
+                                    <table id="variables" class="table table-condensed">
+                                        <colgroup>
+                                            <col class="col-md-5">
+                                            <col class="col-md-6">
+                                            <col>
+                                        </colgroup>
+                                        <thead>
+                                        <tr>
+                                            <th>Variable</th>
+                                            <th>Value</th>
+                                            <th></th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr>
+                                        </tr>
+                                        </tbody>
+                                        <tfoot>
+                                        <tr>
+                                            <td>
+                                            </td>
+                                            <td>
+                                            </td>
+                                            <td>
+                                                <button class="btn btn-success add-var">+</button>
+                                            </td>
+                                        </tr>
+                                        </tfoot>
+                                    </table>
+                                <li>
+                                    <div class="input-group">
+                                        <label class="input-group-addon" for="rand-start">RAND_TIME start:</label>
+                                        <input class="form-control" id="rand-start" type="text" placeholder="">
+                                        <label class="input-group-addon" for="rand-end">RAND_TIME end:</label>
+                                        <input class="form-control" id="rand-end" type="text" placeholder="">
+                                    </div>
+                                </li>
+                                </li>
+                            </ul>
+                        </div>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="vendor/jquery.min.js"></script>
+<script src="vendor/bootstrap.min.js"></script>
+<script src="vendor/js-yaml.min.js"></script>
+<script src="vendor/src-min-noconflict/ace.js"></script>
+<script src="vendor/src-min-noconflict/mode-json.js"></script>
+<script src="vendor/src-min-noconflict/mode-yaml.js"></script>
+<script src="vendor/elasticsearch.jquery.min.js"></script>
+<script src="js/esquery.js"></script>
+<script src="js/comments.js"></script>
+<script src="js/query.js"></script>
+<script src="js/editor.js"></script>
+<script src="js/stress.js"></script>
+</html>
